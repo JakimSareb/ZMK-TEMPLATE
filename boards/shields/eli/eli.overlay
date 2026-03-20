@@ -6,7 +6,7 @@
         zmk,matrix_transform = &default_transform;
     };
 
-    // Definición de la matriz de 6 filas x 19 columnas (114 posiciones)
+    // Transformación de matriz: 6 filas x 19 columnas
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         columns = <19>;
@@ -26,46 +26,46 @@
         label = "KSCAN";
         diode-direction = "col2row";
 
-        // Mapeo de Filas en el MCP23017
+        // Filas conectadas al MCP23017 (PA0-PA5)
         row-gpios
-            = <&mcp23017 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 0 -> PA5
-            , <&mcp23017 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 1 -> PA4
-            , <&mcp23017 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 2 -> PA3
-            , <&mcp23017 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 3 -> PA2
-            , <&mcp23017 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 4 -> PA1
-            , <&mcp23017 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Fila 5 -> PA0
+            = <&mcp23017 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&mcp23017 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&mcp23017 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&mcp23017 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&mcp23017 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&mcp23017 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        // Mapeo Híbrido de Columnas (nRF52840 + MCP23017)
+        // Columnas Híbridas (nRF52840 + MCP23017)
         col-gpios
-            = <&pro_micro 15 GPIO_ACTIVE_HIGH> // Col 0 -> D15
-            , <&pro_micro 14 GPIO_ACTIVE_HIGH> // Col 1 -> D14
-            , <&pro_micro 16 GPIO_ACTIVE_HIGH> // Col 2 -> D16
-            , <&pro_micro 10 GPIO_ACTIVE_HIGH> // Col 3 -> D10
-            , <&pro_micro 9  GPIO_ACTIVE_HIGH> // Col 4 -> D9
-            , <&pro_micro 8  GPIO_ACTIVE_HIGH> // Col 5 -> D8
-            , <&pro_micro 7  GPIO_ACTIVE_HIGH> // Col 6 -> D7
-            , <&pro_micro 6  GPIO_ACTIVE_HIGH> // Col 7 -> D6
-            , <&pro_micro 5  GPIO_ACTIVE_HIGH> // Col 8 -> D5
-            , <&mcp23017 15 GPIO_ACTIVE_HIGH>  // Col 9 -> PB7
-            , <&mcp23017 14 GPIO_ACTIVE_HIGH>  // Col 10 -> PB6
-            , <&mcp23017 13 GPIO_ACTIVE_HIGH>  // Col 11 -> PB5
-            , <&mcp23017 12 GPIO_ACTIVE_HIGH>  // Col 12 -> PB4
-            , <&mcp23017 11 GPIO_ACTIVE_HIGH>  // Col 13 -> PB3
-            , <&mcp23017 10 GPIO_ACTIVE_HIGH>  // Col 14 -> PB2
-            , <&mcp23017 9  GPIO_ACTIVE_HIGH>  // Col 15 -> PB1
-            , <&mcp23017 8  GPIO_ACTIVE_HIGH>  // Col 16 -> PB0
-            , <&mcp23017 7  GPIO_ACTIVE_HIGH>  // Col 17 -> PA7
-            , <&mcp23017 6  GPIO_ACTIVE_HIGH>  // Col 18 -> PA6
+            = <&pro_micro 15 GPIO_ACTIVE_HIGH> // Col 0
+            , <&pro_micro 14 GPIO_ACTIVE_HIGH> // Col 1
+            , <&pro_micro 16 GPIO_ACTIVE_HIGH> // Col 2
+            , <&pro_micro 10 GPIO_ACTIVE_HIGH> // Col 3
+            , <&pro_micro 9  GPIO_ACTIVE_HIGH> // Col 4
+            , <&pro_micro 8  GPIO_ACTIVE_HIGH> // Col 5
+            , <&pro_micro 7  GPIO_ACTIVE_HIGH> // Col 6
+            , <&pro_micro 6  GPIO_ACTIVE_HIGH> // Col 7
+            , <&pro_micro 5  GPIO_ACTIVE_HIGH> // Col 8
+            , <&mcp23017 15 GPIO_ACTIVE_HIGH>  // Col 9
+            , <&mcp23017 14 GPIO_ACTIVE_HIGH>  // Col 10
+            , <&mcp23017 13 GPIO_ACTIVE_HIGH>  // Col 11
+            , <&mcp23017 12 GPIO_ACTIVE_HIGH>  // Col 12
+            , <&mcp23017 11 GPIO_ACTIVE_HIGH>  // Col 13
+            , <&mcp23017 10 GPIO_ACTIVE_HIGH>  // Col 14
+            , <&mcp23017 9  GPIO_ACTIVE_HIGH>  // Col 15
+            , <&mcp23017 8  GPIO_ACTIVE_HIGH>  // Col 16
+            , <&mcp23017 7  GPIO_ACTIVE_HIGH>  // Col 17
+            , <&mcp23017 6  GPIO_ACTIVE_HIGH>  // Col 18
             ;
     };
 
-    // Configuración del Rotary Encoder EC11
+    // Encoder rotativo en pines D0 y D1
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         label = "LEFT_ENCODER";
-        a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; // D1
-        b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; // D0
+        a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <4>;
     };
 
@@ -75,11 +75,9 @@
     };
 };
 
-// Configuración del Bus I2C para el expansor
+// Configuración I2C para el expansor
 &i2c0 {
     status = "okay";
-    sda-pin = <3>; // SDA en D3
-    scl-pin = <4>; // SCL en D4
 
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
@@ -87,7 +85,7 @@
         label = "MCP23017";
         gpio-controller;
         #gpio-cells = <2>;
-        // Interrupción física conectada al pin D2
+        // Pin de interrupción física en D2
         int-gpios = <&pro_micro 2 GPIO_ACTIVE_LOW>;
     };
 };
