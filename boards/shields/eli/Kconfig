@@ -1,0 +1,6 @@
+if SHIELD_MI_TECLADO
+
+config ZMK_KEYBOARD_NAME
+    default "MiTeclado100"
+
+endif
