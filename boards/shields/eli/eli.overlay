@@ -1,3 +1,10 @@
+/ {
+    /* Esto ayuda a Zephyr a encontrar el driver si no está en la ruta estándar */
+    soc {
+        i2c0: i2c@40003000 { };
+    };
+};
+
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
@@ -23,7 +30,6 @@
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
-
         row-gpios
             = <&mcp23017 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&mcp23017 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -32,7 +38,6 @@
             , <&mcp23017 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&mcp23017 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
-
         col-gpios
             = <&pro_micro 15 GPIO_ACTIVE_HIGH> 
             , <&pro_micro 14 GPIO_ACTIVE_HIGH> 
@@ -54,18 +59,6 @@
             , <&mcp23017 7  GPIO_ACTIVE_HIGH>  
             , <&mcp23017 6  GPIO_ACTIVE_HIGH>  
             ;
-    };
-
-    left_encoder: encoder_left {
-        compatible = "alps,ec11";
-        a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>;
-    };
-
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&left_encoder>;
     };
 };
 
