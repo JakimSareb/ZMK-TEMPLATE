@@ -1,5 +1,4 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <dt-bindings/zmk/outputs.h>
 
 / {
     chosen {
@@ -23,7 +22,6 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         diode-direction = "col2row";
 
         row-gpios
@@ -60,7 +58,6 @@
 
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "LEFT_ENCODER";
         a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <4>;
@@ -74,11 +71,9 @@
 
 &i2c0 {
     status = "okay";
-
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
         reg = <0x20>;
-        label = "MCP23017";
         gpio-controller;
         #gpio-cells = <2>;
         int-gpios = <&pro_micro 2 GPIO_ACTIVE_LOW>;
