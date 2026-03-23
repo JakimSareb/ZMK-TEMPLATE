@@ -1,0 +1,18 @@
+description: MCP23017 I2C-based GPIO expander
+
+compatible: "microchip,mcp23017"
+
+include: [gpio-controller.yaml, i2c-device.yaml]
+
+properties:
+  reg:
+    required: true
+  int-gpios:
+    type: phandle-array
+    required: false
+  "#gpio-cells":
+    const: 2
+
+gpio-cells:
+  - pin
+  - flags

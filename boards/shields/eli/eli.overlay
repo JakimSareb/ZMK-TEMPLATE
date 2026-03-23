@@ -55,7 +55,7 @@
     };
 };
 
-&pro_micro_i2c {
+&i2c0 {
     status = "okay";
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
