@@ -23,10 +23,9 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         diode-direction = "col2row";
 
-        // Filas conectadas al MCP23017 (PA0-PA5)
+        // Filas en MCP23017 (PA0-PA5)
         row-gpios
             = <&mcp23017 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&mcp23017 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -38,36 +37,33 @@
 
         // Columnas Híbridas (nRF52840 + MCP23017)
         col-gpios
-            = <&pro_micro 15 GPIO_ACTIVE_HIGH> // Col 0
-            , <&pro_micro 14 GPIO_ACTIVE_HIGH> // Col 1
-            , <&pro_micro 16 GPIO_ACTIVE_HIGH> // Col 2
-            , <&pro_micro 10 GPIO_ACTIVE_HIGH> // Col 3
-            , <&pro_micro 9  GPIO_ACTIVE_HIGH> // Col 4
-            , <&pro_micro 8  GPIO_ACTIVE_HIGH> // Col 5
-            , <&pro_micro 7  GPIO_ACTIVE_HIGH> // Col 6
-            , <&pro_micro 6  GPIO_ACTIVE_HIGH> // Col 7
-            , <&pro_micro 5  GPIO_ACTIVE_HIGH> // Col 8
-            , <&mcp23017 15 GPIO_ACTIVE_HIGH>  // Col 9
-            , <&mcp23017 14 GPIO_ACTIVE_HIGH>  // Col 10
-            , <&mcp23017 13 GPIO_ACTIVE_HIGH>  // Col 11
-            , <&mcp23017 12 GPIO_ACTIVE_HIGH>  // Col 12
-            , <&mcp23017 11 GPIO_ACTIVE_HIGH>  // Col 13
-            , <&mcp23017 10 GPIO_ACTIVE_HIGH>  // Col 14
-            , <&mcp23017 9  GPIO_ACTIVE_HIGH>  // Col 15
-            , <&mcp23017 8  GPIO_ACTIVE_HIGH>  // Col 16
-            , <&mcp23017 7  GPIO_ACTIVE_HIGH>  // Col 17
-            , <&mcp23017 6  GPIO_ACTIVE_HIGH>  // Col 18
+            = <&pro_micro 15 GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 14 GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 16 GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 10 GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 9  GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 8  GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 7  GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 6  GPIO_ACTIVE_HIGH> 
+            , <&pro_micro 5  GPIO_ACTIVE_HIGH> 
+            , <&mcp23017 15 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 14 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 13 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 12 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 11 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 10 GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 9  GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 8  GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 7  GPIO_ACTIVE_HIGH>  
+            , <&mcp23017 6  GPIO_ACTIVE_HIGH>  
             ;
     };
 
-    // Encoder rotativo en pines D0 y D1
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "LEFT_ENCODER";
-        status = "okay"; // <--- Indispensable para habilitarlo en Kconfig
+        status = "okay";
         a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>;
     };
 
     sensors {
@@ -76,17 +72,14 @@
     };
 };
 
-// Configuración I2C para el expansor
 &i2c0 {
     status = "okay";
 
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
         reg = <0x20>;
-        label = "MCP23017";
         gpio-controller;
         #gpio-cells = <2>;
-        // Pin de interrupción física en D2 (P0.06)
         int-gpios = <&pro_micro 2 GPIO_ACTIVE_LOW>;
     };
 };

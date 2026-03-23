@@ -1,11 +1,11 @@
 if SHIELD_ELI
 
 config GPIO_MCP23017
-    bool
+    bool "MCP23017"
     default y
 
 config I2C
-    bool
+    bool "I2C"
     default y
 
 endif
