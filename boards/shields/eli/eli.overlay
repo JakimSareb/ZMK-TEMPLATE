@@ -81,5 +81,6 @@
         gpio-controller;
         #gpio-cells = <2>;
         int-gpios = <&pro_micro 2 GPIO_ACTIVE_LOW>;
+        status = "okay"; // Asegúrate de que esta línea esté presente
     };
 };

@@ -9,7 +9,7 @@ config GPIO
     default y
 
 config GPIO_MCP23017
-    bool
+    bool "MCP23017 GPIO expander"
     default y
     select I2C
 
