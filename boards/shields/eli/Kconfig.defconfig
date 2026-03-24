@@ -1,9 +1,9 @@
 if SHIELD_ELI
 
-config GPIO
+config I2C
     def_bool y
 
-config I2C
+config GPIO
     def_bool y
 
 config GPIO_MCP23017
