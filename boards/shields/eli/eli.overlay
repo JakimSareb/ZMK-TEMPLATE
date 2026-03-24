@@ -6,7 +6,6 @@
         zmk,matrix_transform = &default_transform;
     };
 
-    // Transformación de matriz: 6 filas x 19 columnas
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         columns = <19>;
@@ -25,7 +24,6 @@
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
 
-        // Filas en MCP23017 (PA0-PA5)
         row-gpios
             = <&mcp23017 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&mcp23017 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -35,7 +33,6 @@
             , <&mcp23017 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        // Columnas Híbridas (nRF52840 + MCP23017)
         col-gpios
             = <&pro_micro 15 GPIO_ACTIVE_HIGH> 
             , <&pro_micro 14 GPIO_ACTIVE_HIGH> 
@@ -61,9 +58,9 @@
 
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        status = "okay";
         a-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        status = "okay";
     };
 
     sensors {
@@ -74,13 +71,12 @@
 
 &i2c0 {
     status = "okay";
-
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
         reg = <0x20>;
         gpio-controller;
         #gpio-cells = <2>;
         int-gpios = <&pro_micro 2 GPIO_ACTIVE_LOW>;
-        status = "okay"; // Asegúrate de que esta línea esté presente
+        status = "okay";
     };
 };
