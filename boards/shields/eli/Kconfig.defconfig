@@ -1,11 +1,16 @@
 if SHIELD_ELI
 
-config GPIO_MCP23017
-    bool "MCP23017"
+config I2C
+    bool
     default y
 
-config I2C
-    bool "I2C"
+config GPIO
+    bool
     default y
+
+config GPIO_MCP23017
+    bool
+    default y
+    select I2C
 
 endif
